@@ -11,11 +11,12 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if (Firebase.apps.isEmpty) await Firebase.initializeApp();
+  RemoteNotification? notification = message.notification;
 
   flutterLocalNotificationsPlugin.show(
     message.hashCode,
-    message.data['title'],
-    message.data['body'],
+    notification?.title,
+    notification?.body,
     NotificationDetails(
       android: AndroidNotificationDetails(
         androidChannel.id,
@@ -26,19 +27,19 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         importance: Importance.max,
         priority: Priority.max,
       ),
-      iOS: IOSNotificationDetails(
+      iOS: const IOSNotificationDetails(
         presentSound: true,
         presentAlert: true,
         presentBadge: true,
-        subtitle: message.data['title'],
         sound: 'default',
       ),
     ),
+    payload: message.data['screen'],
   );
 }
 
-final AndroidNotificationChannel androidChannel = AndroidNotificationChannel(
-  'vacancy_channel', // id
+const AndroidNotificationChannel androidChannel = AndroidNotificationChannel(
+  'fcm', // id
   'Application received', // title
   description:
       'THis channel is used for showing notifications about applications',
@@ -48,19 +49,20 @@ final AndroidNotificationChannel androidChannel = AndroidNotificationChannel(
 class NotificationsService {
   NotificationsService._();
 
-  static NotificationsService _instance = NotificationsService._();
+  static final NotificationsService _instance = NotificationsService._();
 
   static NotificationsService get getInstance => _instance;
 
   Future<void> initialize() async {
     await Firebase.initializeApp();
-    if (Platform.isIOS)
+    if (Platform.isIOS) {
       await FirebaseMessaging.instance.requestPermission(
         announcement: true,
         provisional: false,
       );
+    }
 
-    final IOSInitializationSettings initializationSettingsIOS =
+    const IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
@@ -68,7 +70,7 @@ class NotificationsService {
     );
 
     AndroidInitializationSettings androidNotificationSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
     final InitializationSettings initializationSettings =
         InitializationSettings(
       android: androidNotificationSettings,
@@ -78,7 +80,6 @@ class NotificationsService {
     flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
       onSelectNotification: (payload) {
-        print(payload ?? '' + 'eee');
         if (payload == '/ui') {
           Get.toNamed(Routes.UI);
         }
@@ -94,9 +95,9 @@ class NotificationsService {
 
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-    await FirebaseMessaging.onMessage.listen(
+    FirebaseMessaging.onMessage.listen(
       (remoteMessage) {
-        RemoteNotification? notification = remoteMessage.notification ?? null;
+        RemoteNotification? notification = remoteMessage.notification;
         flutterLocalNotificationsPlugin.show(
           0,
           notification?.title,
@@ -111,7 +112,7 @@ class NotificationsService {
               importance: Importance.max,
               playSound: true,
             ),
-            iOS: IOSNotificationDetails(
+            iOS: const IOSNotificationDetails(
               presentSound: true,
               presentAlert: true,
               presentBadge: true,
