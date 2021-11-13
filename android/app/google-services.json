@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "464106254904",
+    "project_id": "fcmessaging-dd7bf",
+    "storage_bucket": "fcmessaging-dd7bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464106254904:android:cf1e98a28a380d0fc2eccd",
+        "android_client_info": {
+          "package_name": "uz.shs.fcm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464106254904-bl9aioj3kqnhgalcso9mte3cjihtdkjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu3wsTsX7c-ZbMWRhkEp93bKPmGIh-Fzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464106254904-bl9aioj3kqnhgalcso9mte3cjihtdkjg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
