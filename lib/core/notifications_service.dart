@@ -11,12 +11,11 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if (Firebase.apps.isEmpty) await Firebase.initializeApp();
-  RemoteNotification? notification = message.notification;
-
+  final Map<String, dynamic> data = message.data;
   flutterLocalNotificationsPlugin.show(
-    message.hashCode,
-    notification?.title,
-    notification?.body,
+    0,
+    data['title'],
+    data['body'],
     NotificationDetails(
       android: AndroidNotificationDetails(
         androidChannel.id,
@@ -34,7 +33,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         sound: 'default',
       ),
     ),
-    payload: message.data['screen'],
+    payload: data['screen'],
   );
 }
 
@@ -93,15 +92,18 @@ class NotificationsService {
       sound: true,
     );
 
+    FirebaseMessaging.onMessageOpenedApp
+        .listen(_firebaseMessagingBackgroundHandler);
+
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     FirebaseMessaging.onMessage.listen(
       (remoteMessage) {
-        RemoteNotification? notification = remoteMessage.notification;
+        final Map<String, dynamic> data = remoteMessage.data;
         flutterLocalNotificationsPlugin.show(
           0,
-          notification?.title,
-          notification?.body,
+          data['title'],
+          data['body'],
           NotificationDetails(
             android: AndroidNotificationDetails(
               androidChannel.id,
@@ -119,7 +121,7 @@ class NotificationsService {
               sound: 'default',
             ),
           ),
-          payload: remoteMessage.data['screen'],
+          payload: data['screen'],
         );
       },
     );
