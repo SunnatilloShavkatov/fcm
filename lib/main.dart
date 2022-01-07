@@ -10,7 +10,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   var storage = GetStorage();
-  if (Firebase.apps.isEmpty) await Firebase.initializeApp();
   await NotificationsService.getInstance.initialize();
   if (!storage.hasData('fcmToken')) {
     String? fcmToken = await FirebaseMessaging.instance.getToken();
