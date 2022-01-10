@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>464106254904-mrpc6fm9ndlvq8dd4uo2jp5a5iv6icah.apps.googleusercontent.com</string>
+	<string>464106254904-5er9epauhiv8sg9kg0ea7narb1034cup.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.464106254904-mrpc6fm9ndlvq8dd4uo2jp5a5iv6icah</string>
+	<string>com.googleusercontent.apps.464106254904-5er9epauhiv8sg9kg0ea7narb1034cup</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBn2icBMy_KPZEBAk5scgHz_TpyESSic7U</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>uz.shs.fcm</string>
+	<string>uz.udevs.firebaseSample</string>
 	<key>PROJECT_ID</key>
 	<string>fcmessaging-dd7bf</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:464106254904:ios:d193b4b9f258f800c2eccd</string>
+	<string>1:464106254904:ios:aa2a19cce3d8ef7bc2eccd</string>
 </dict>
 </plist>
